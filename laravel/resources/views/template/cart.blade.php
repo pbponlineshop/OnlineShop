@@ -170,16 +170,16 @@
 							</td>
 							<td class="cart_description">
 								<h4><a href="">Colorblock Scuba</a></h4>
-								<p>Web ID: 1089772</p>
+								<p>Web ID: 1089773</p>
 							</td>
 							<td class="cart_price">
 								<p>$59</p>
 							</td>
 							<td class="cart_quantity">
 								<div class="cart_quantity_button">
-									<a class="cart_quantity_up" href=""> + </a>
-									<input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
-									<a class="cart_quantity_down" href=""> - </a>
+									<a class="cart_quantity_up" href="" onclick="var effect = document.getElementById('qty1'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;"> + </a>
+									<input class="cart_quantity_input" id="qty1" min="1" type="text" name="quantity" value="1" autocomplete="off" size="2">
+									<a class="cart_quantity_down" href="" onclick="var effect = document.getElementById('qty1'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;"> - </a>
 								</div>
 							</td>
 							<td class="cart_total">
@@ -203,9 +203,9 @@
 							</td>
 							<td class="cart_quantity">
 								<div class="cart_quantity_button">
-									<a class="cart_quantity_up" href=""> + </a>
-									<input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
-									<a class="cart_quantity_down" href=""> - </a>
+									<a class="cart_quantity_up" href="" onclick="var effect = document.getElementById('qty2'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;"> + </a>
+									<input class="cart_quantity_input" id="qty2" min="1" type="text" name="quantity" value="1" autocomplete="off" size="2">
+									<a class="cart_quantity_down" href="" onclick="var effect = document.getElementById('qty2'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;"> - </a>
 								</div>
 							</td>
 							<td class="cart_total">
@@ -228,9 +228,9 @@
 							</td>
 							<td class="cart_quantity">
 								<div class="cart_quantity_button">
-									<a class="cart_quantity_up" href=""> + </a>
-									<input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
-									<a class="cart_quantity_down" href=""> - </a>
+									<a class="cart_quantity_up" href="" onclick="var effect = document.getElementById('qty3'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;"> + </a>
+									<input class="cart_quantity_input" id="qty3" min="1" type="text" name="quantity" value="1" autocomplete="off" size="2">
+									<a class="cart_quantity_down" href="" onclick="var effect = document.getElementById('qty3'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;"> - </a>
 								</div>
 							</td>
 							<td class="cart_total">
