@@ -1,4 +1,11 @@
 <!DOCTYPE html>
+<?php
+    if(!\Session::get('customer')) {
+        $account = Session::get('account');
+    } else {
+        $account = Session::get('customer.0')->nama_cust;
+    }
+?>
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -86,7 +93,7 @@
                         <div class="col-sm-8">
                             <div class="shop-menu pull-right">
                                 <ul class="nav navbar-nav">
-                                    <li><a href=""><i class="fa fa-user"></i> Account</a></li>
+                                    <li><a href=""><i class="fa fa-user"></i> <?php echo $account?> </a></li>
                                     <li><a href=""><i class="fa fa-star"></i> Wishlist</a></li>
                                     <li><a href="/checkout"><i class="fa fa-crosshairs"></i> Checkout</a></li>
                                     <li><a href="/cart"><i class="fa fa-shopping-cart"></i> Cart</a></li>

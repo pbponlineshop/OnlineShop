@@ -45,7 +45,7 @@ class indexController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show()
-    {
+    {   
         $produks = \App\Produk::all();
         return view('template.index', ['produks' => $produks]);
     }

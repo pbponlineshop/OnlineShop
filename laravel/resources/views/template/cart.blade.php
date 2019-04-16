@@ -1,4 +1,11 @@
 <!DOCTYPE html>
+<?php
+    if(!Session::get('customer')) {
+        $account = Session::get('account');
+    } else {
+        $account = Session::get('customer.0')->nama_cust;
+    }
+?>
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -86,11 +93,22 @@
                         <div class="col-sm-8">
                             <div class="shop-menu pull-right">
                                 <ul class="nav navbar-nav">
-                                    <li><a href=""><i class="fa fa-user"></i> Account</a></li>
+                                    <li><a href=""><i class="fa fa-user"></i> <?php echo $account?></a></li>
                                     <li><a href=""><i class="fa fa-star"></i> Wishlist</a></li>
                                     <li><a href="/checkout"><i class="fa fa-crosshairs"></i> Checkout</a></li>
                                     <li><a href="/cart" class="active"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-                                    <li><a href="/login"><i class="fa fa-lock"></i> Login</a></li>
+                                    
+                                    <?php
+                                        if(!Session::get('customer')) {
+                                    ?>
+                                            <li><a href="/login"><i class="fa fa-lock"></i> Login</a></li>
+                                    <?php
+                                        } else {
+                                    ?>
+                                            <li><a href="/removesession"><i class="fa fa-lock"></i> Logout</a></li>
+                                     <?php
+                                        }
+                                    ?>
                                 </ul>
                             </div>
                         </div>
@@ -119,7 +137,17 @@
                                             <li><a href="/product-details">Product Details</a></li> 
                                             <li><a href="/checkout">Checkout</a></li> 
                                             <li><a href="/cart" class="active">Cart</a></li> 
-                                            <li><a href="/login">Login</a></li> 
+                                            <?php
+                                                if(!Session::get('customer')) {
+                                            ?>
+                                                <li><a href="/login">Login</a></li>
+                                            <?php
+                                                } else {
+                                            ?>
+                                                <li><a href="/removesession">Logout</a></li> 
+                                             <?php
+                                                }
+                                            ?>
                                         </ul>
                                     </li> 
                                     <li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
@@ -181,9 +209,9 @@
                                     </td>
                                     <td class="cart_quantity">
                                         <div class="cart_quantity_button">
-                                            <a class="cart_quantity_up" href=""> + </a>
+                                            <a class="cart_quantity_up" href=""> - </a>
                                             <input class="cart_quantity_input" type="text" name="quantity" value="{{ $cart->jumlah_barang }}" autocomplete="off" size="2">
-                                            <a class="cart_quantity_down" href=""> - </a>
+                                            <a class="cart_quantity_down" href=""> + </a>
                                         </div>
                                     </td>
                                     <td class="cart_total">

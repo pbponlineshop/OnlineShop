@@ -19,17 +19,17 @@ class SessionController extends Controller
         
         //kalo nama & pass salah
         if ($customer->count() == 0) {
-            return view('template.login');
+            return redirect('login')->with('alert','Password atau Email, Salah !');
         } else {
             $produks = \App\Produk::all();
-            Session::put('customer', $customer);
+            \Session::put('customer', $customer);
             return view('template.index', ['produks' => $produks]);
         }
         
         echo "Data has been added to session";
    }
    public function deleteSessionData(Request $request) {
-      $request->session()->forget('my_name');
-      echo "Data has been removed from session.";
+      $request->session()->forget('customer');
+      return view('template.login');
    }
 }

@@ -12,6 +12,7 @@
 */
 
 Route::get('/', function () {
+    Session::put('account',"Account");
     return view('template.login');
 });
 

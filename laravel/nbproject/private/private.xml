@@ -3,13 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="5"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Kuliah/Semester%204/PBP/Tubes/laravel/resources/views/template/checkout.blade.php</file>
-            <file>file:/D:/Kuliah/Semester%204/PBP/Tubes/laravel/resources/views/template/blog.blade.php</file>
-            <file>file:/D:/Kuliah/Semester%204/PBP/Tubes/laravel/resources/views/template/404.blade.php</file>
-            <file>file:/D:/Kuliah/Semester%204/PBP/Tubes/laravel/resources/views/template/product-details.blade.php</file>
-            <file>file:/D:/Kuliah/Semester%204/PBP/Tubes/laravel/resources/views/template/blog-single.blade.php</file>
-            <file>file:/D:/Kuliah/Semester%204/PBP/Tubes/laravel/resources/views/template/contact-us.blade.php</file>
-            <file>file:/D:/Kuliah/Semester%204/PBP/Tubes/laravel/resources/views/template/home.blade.php</file>
+            <file>file:/D:/Kuliah/Semester%204/PBP/Tubes/laravel/app/Http/Controllers/SessionController.php</file>
+            <file>file:/D:/Kuliah/Semester%204/PBP/Tubes/laravel/app/Http/Controllers/home/indexController.php</file>
+            <file>file:/D:/Kuliah/Semester%204/PBP/Tubes/laravel/resources/views/template/index.blade.php</file>
+            <file>file:/D:/Kuliah/Semester%204/PBP/Tubes/laravel/app/Http/Controllers/home/loginController.php</file>
+            <file>file:/D:/Kuliah/Semester%204/PBP/Tubes/laravel/app/Http/Controllers/home/cartController.php</file>
             <file>file:/D:/Kuliah/Semester%204/PBP/Tubes/laravel/resources/views/template/cart.blade.php</file>
         </group>
     </open-files>
