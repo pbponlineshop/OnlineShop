@@ -35,7 +35,7 @@ class indexController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**
@@ -46,8 +46,8 @@ class indexController extends Controller
      */
     public function show()
     {
-        //
-        return view('template.index');
+        $produks = \App\Produk::all();
+        return view('template.index', ['produks' => $produks]);
     }
 
     /**

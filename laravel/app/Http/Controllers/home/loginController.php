@@ -46,7 +46,6 @@ class loginController extends Controller
      */
     public function show()
     {
-        //
         return view('template.login');
     }
 

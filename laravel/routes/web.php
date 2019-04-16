@@ -12,16 +12,21 @@
 */
 
 Route::get('/', function () {
-    return view('template.index');
+    $produks = App\Produk::all();
+//    $produks = App\Produk::where('id_produk', 1)->get();
+    return view('template.index', ['produks' => $produks]);
 });
 
 // Route::get('/shop', function () {
 //     return view('template.shop');
 // });
 Route::get('/index', 'home\indexController@show');
+Route::post('/index', 'home\indexController@store');
 Route::get('/shop', 'home\shopController@show');
 Route::get('/product-details', 'home\productDetailsController@show');
 Route::get('/cart', 'home\cartController@show');
+Route::get('/cartdel{id_transdetail}', 'home\cartController@destroy');
+Route::post('/cart', 'home\cartController@store');
 Route::get('/checkout', 'home\checkoutController@show');
 Route::get('/login', 'home\loginController@show');
 Route::get('/blog', 'home\blogController@show');
