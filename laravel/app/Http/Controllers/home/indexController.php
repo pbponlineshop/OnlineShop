@@ -14,17 +14,7 @@ class indexController extends Controller
      */
     public function index(Request $request)
     {
-        $nama_cust = $request->input('nama_cust');
-        $password = $request->input('password');
-        $customers = \App\Customer::where('nama_cust', $nama_cust)->where('password', $password)->get();
         
-        //kalo nama & pass salah
-        if ($customers->count() == 0) {
-            return view('template.login');
-        } else {
-            $produks = \App\Produk::all();
-            return view('template.index', ['produks' => $produks], ['customers' => $customers]);
-        }
     }
 
     /**
@@ -56,9 +46,8 @@ class indexController extends Controller
      */
     public function show()
     {
-        $customers = \App\Customer::where('nama_cust', $nama_cust)->where('password', $password)->get();
         $produks = \App\Produk::all();
-        return view('template.index', ['produks' => $produks], ['customers' => $customers]);
+        return view('template.index', ['produks' => $produks]);
     }
 
     /**

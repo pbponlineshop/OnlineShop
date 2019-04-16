@@ -12,14 +12,9 @@
 */
 
 Route::get('/', function () {
-    $produks = App\Produk::all();
-//    $produks = App\Produk::where('id_produk', 1)->get();
-    return view('template.index', ['produks' => $produks]);
+    return view('template.login');
 });
 
-// Route::get('/shop', function () {
-//     return view('template.shop');
-// });
 Route::get('/index', 'home\indexController@show');
 Route::post('/indexlogin', 'home\indexController@index');
 Route::post('/index', 'home\indexController@store');
@@ -34,12 +29,10 @@ Route::post('/login', 'home\loginController@store');
 Route::get('/blog', 'home\blogController@show');
 Route::get('/blog-single', 'home\blogSingleController@show');
 Route::get('/contact-us', 'home\contactUsController@show');
-/*Route::get('/tours/{id}',function(){
-    return view('template.tours');
-})->name('tours');
-*/
 
-//Route::get('/nilai/{value}','MhsController@showNilai');
+Route::get('getsession','SessionController@accessSessionData');
+Route::get('setsession','SessionController@storeSessionData');
+Route::get('removesession','SessionController@deleteSessionData');
 
-Route::resource('/Mhs','MhsController');
+
 

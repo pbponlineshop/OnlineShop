@@ -1,4 +1,10 @@
 <!DOCTYPE html>
+<?php
+     if(!Session::get('login')) {
+        echo "belum login";
+     } else {
+     
+?>
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -86,7 +92,7 @@
                         <div class="col-sm-8">
                             <div class="shop-menu pull-right">
                                 <ul class="nav navbar-nav">
-                                    <li><a href="#"><i class="fa fa-user"></i> {{ $customers->first()->nama_cust }}</a></li>
+                                    <li><a href="#"><i class="fa fa-user"></i> {{ Session::get('customer->nama_cust') }}</a></li>
                                     <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
                                     <li><a href="/checkout"><i class="fa fa-crosshairs"></i> Checkout</a></li>
                                     <li><a href="/cart"><i class="fa fa-shopping-cart"></i> Cart</a></li>
@@ -720,3 +726,6 @@
         <script src="js/main.js"></script>
     </body>
 </html>
+<?php
+     }
+?>

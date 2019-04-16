@@ -149,7 +149,7 @@
                     <div class="col-sm-4 col-sm-offset-1">
                         <div class="login-form"><!--login form-->
                             <h2>Login to your account</h2>
-                            <form method='post' action="/indexlogin">
+                            <form method='get' action="/setsession">
                                 {{ csrf_field() }}
                                 <input type="text" placeholder="Name" name='nama_cust' />
                                 <input type="password" placeholder="Password" name='password' />
