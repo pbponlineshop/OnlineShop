@@ -86,7 +86,7 @@
                         <div class="col-sm-8">
                             <div class="shop-menu pull-right">
                                 <ul class="nav navbar-nav">
-                                    <li><a href="#"><i class="fa fa-user"></i> Account</a></li>
+                                    <li><a href="#"><i class="fa fa-user"></i> {{ $customers->first()->nama_cust }}</a></li>
                                     <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
                                     <li><a href="/checkout"><i class="fa fa-crosshairs"></i> Checkout</a></li>
                                     <li><a href="/cart"><i class="fa fa-shopping-cart"></i> Cart</a></li>
@@ -364,7 +364,7 @@
                                                     <input type="hidden" name="harga_produk" class="form-control" value="{{ $produk->harga_produk }}">
                                                 </div>
                                                 <div class="form-group">
-                                                        <button type="submit" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+                                                    <button type="submit" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
                                                 </div>
                                             </div>
                                             <div class="product-overlay">
