@@ -198,6 +198,7 @@
                            <?php $i = 0; ?>
                             @foreach($carts as $cart)
                                 <?php $i++; ?>
+                                <?php echo $i ?>
                                 <tr>
                                     <td class="cart_product">
                                         <a href=""><img src="{{ $cart->image }}" height='110' width='110' alt=""></a>
@@ -211,9 +212,9 @@
                                     </td>
                                     <td class="cart_quantity">
                                         <div class="cart_quantity_button">
-                                            <a class="cart_quantity_up" href="" onclick="var effect = document.getElementById('qty$i'); var qty = effect.value; if( !isNaN( qty )) effect.value--;return false;"> - </a>
-                                            <input class="cart_quantity_input" id="qty$i" min="1" type="text" name="quantity" value="{{ $cart->jumlah_barang }}" autocomplete="off" size="2">
-                                            <a class="cart_quantity_down" href="" onclick="var effect = document.getElementById('qty$i'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value++;return false;"> + </a>
+                                            <?php echo "<a class=\"cart_quantity_up\" href=\"\" onclick=\"var effect = document.getElementById('qty$i'); var qty$i = effect.value; if( !isNaN( qty$i ) &amp;&amp; qty$i &gt; 1 ) effect.value--;return false;\"> - </a>" ?>
+                                            <input class="cart_quantity_input" <?php echo "id=\"qty$i\" " ?> step="1" min="1" type="text" <?php echo "name=\"quantity$i\" "?> value="{{ $cart->jumlah_barang }}" autocomplete="off" size="2">
+                                            <?php echo "<a class=\"cart_quantity_down\" href=\"\" onclick=\"var effect = document.getElementById('qty$i'); var qty$i = effect.value; if( !isNaN( qty$i )) effect.value++;return false;\"> + </a>" ?>
                                         </div>
                                     </td>
                                     <td class="cart_total">
