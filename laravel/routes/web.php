@@ -25,6 +25,7 @@ Route::get('/cart', 'home\cartController@show');
 Route::get('/cartdel{id_transdetail}', 'home\cartController@destroy');
 Route::post('/cart', 'home\cartController@store');
 Route::get('/checkout', 'home\checkoutController@show');
+Route::post('/checkoutpay', 'home\checkoutController@store');
 Route::get('/login', 'home\loginController@show');
 Route::post('/login', 'home\loginController@store');
 Route::get('/blog', 'home\blogController@show');
