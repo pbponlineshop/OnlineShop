@@ -377,7 +377,9 @@
                      <div class="col-sm-9 padding-right">
                         <div class="features_items"><!--all_items-->
                             <h2 class="title text-center">All Items</h2>
+                            <?php $i = 0; ?>
                             @foreach($produks as $produk)
+                                <?php $i++; ?>
                                 <div class="col-sm-4">
                                 <div class="product-image-wrapper">
                                     <form method="post" action="/cart">
@@ -404,18 +406,33 @@
                                                         <input type="hidden" name="harga_produk" class="form-control" value="{{ $produk->harga_produk }}">
                                                     </div>
                                                     <div class="form-group">
-                                                            <button type="submit" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+                                                        <button type="submit" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="choose">
-                                            <ul class="nav nav-pills nav-justified">
-                                                <li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
-                                                <li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>
-                                            </ul>
-                                        </div>
-                                    </form>
+                                       
+                                        <!-- <script type='text/javascript'>
+                                            window.onload = function() {
+                                                document.getElementById('mylink').onclick = function() {
+                                                    this.style.color = '#FE980F';
+                                                }
+                                            }
+                                        </script> -->
+                                    </form>    
+                                    
+                                    <div class="choose">
+                                        <ul class="nav nav-pills nav-justified">
+                                            <li>
+                                                <form method="post" action="/wishlist">
+                                                    {{ csrf_field() }}
+                                                    <input type="hidden" name="id_produk" class="form-control" value="{{ $produk->id_produk }}">
+                                                    <button type="submit"><i class="fa fa-plus-square"></i>Add to wishlist</a>
+                                                </form>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    
                                 </div>
                             </div>
                             @endforeach                                
