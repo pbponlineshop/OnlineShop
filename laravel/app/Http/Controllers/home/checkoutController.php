@@ -46,10 +46,15 @@ class checkoutController extends Controller
             } else {
                 $id_trans = \DB::table('transaksis')->select('id_trans')->where('id_cust', $id_cust)->where('status', 'pending')->first()->id_trans;
             }
-
-            \DB::update('update transaksis set tgl_trans = ?, status =  ? where id_trans = ?', [NOW(), 'selesai', $id_trans]);
-            $id_trans = \DB::table('transaksis')->select('id_trans')->where('id_cust', $id_cust)->where('status', 'pending')->first();
-
+            $id_transdetail = \App\transaksiDetail::where('id_trans', $id_trans)->get();
+            
+            //check ada produk yang dibeli ga, kalo gaada gausa update table
+            if ($id_transdetail->count() == 0) {
+            } else {
+                \DB::update('update transaksis set tgl_trans = ?, status =  ? where id_trans = ?', [NOW(), 'selesai', $id_trans]);
+                $id_trans = \DB::table('transaksis')->select('id_trans')->where('id_cust', $id_cust)->where('status', 'pending')->first();
+            }
+            
             $carts = \DB::table('transaksi_details')
                         ->join('produks', 'transaksi_details.id_produk', '=', 'produks.id_produk')->select('produks.*', 'transaksi_details.*')->where('id_trans', $id_trans)->get();
             return view('template.checkout', ['carts' => $carts]);
