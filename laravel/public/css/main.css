@@ -974,19 +974,20 @@ h2.title {
   border-top: 1px solid #F7F7F0;
 }
 
-.choose ul li a {
+.choose ul li button {
+  background-color: white;
+  border: none;
   color: #B3AFA8;
   font-family: 'Roboto', sans-serif;
   font-size: 13px;
-  padding-left: 0;
-  padding-right: 0;
+  padding-left: 80px;
 }
 
 .choose ul li a i{
 	margin-right:5px;
 }
 
-.choose ul li a:hover{
+.choose ul li button:hover{
 	background:none;
 	color:#FE980F;
 }

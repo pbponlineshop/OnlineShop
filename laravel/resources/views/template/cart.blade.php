@@ -1,10 +1,6 @@
 <!DOCTYPE html>
 <?php
-    if(!Session::get('customer')) {
-        $account = Session::get('account');
-    } else {
-        $account = Session::get('customer.0')->nama_cust;
-    }
+    $account = Session::get('customer.0')->nama_cust;
 ?>
 <html lang="en">
     <head>
@@ -137,6 +133,7 @@
                                             <li><a href="/product-details">Product Details</a></li> 
                                             <li><a href="/checkout">Checkout</a></li> 
                                             <li><a href="/cart" class="active">Cart</a></li> 
+                                            
                                             <?php
                                                 if(!Session::get('customer')) {
                                             ?>
@@ -194,11 +191,13 @@
                         <tbody>
                            <?php
                                 $total_harga = 0;
+                                $i = 0;
+                                $x = 0;
                            ?> 
-                           <?php $i = 0; ?>
                             @foreach($carts as $cart)
-                                <?php $i++; ?>
-                                <?php echo $i ?>
+                                <?php 
+                                    $i++;
+                                ?>
                                 <tr>
                                     <td class="cart_product">
                                         <a href=""><img src="{{ $cart->image }}" height='110' width='110' alt=""></a>
@@ -212,9 +211,9 @@
                                     </td>
                                     <td class="cart_quantity">
                                         <div class="cart_quantity_button">
-                                            <?php echo "<a class=\"cart_quantity_up\" href=\"\" onclick=\"var effect = document.getElementById('qty$i'); var qty$i = effect.value; if( !isNaN( qty$i ) &amp;&amp; qty$i &gt; 1 ) effect.value--;return false;\"> - </a>" ?>
+                                            <a onclick="decrement(`<?php echo 'test'.$i ?>`, `<?php echo 'qty'.$i ?>`)">-</a>
                                             <input class="cart_quantity_input" <?php echo "id=\"qty$i\" " ?> step="1" min="1" type="text" <?php echo "name=\"quantity$i\" "?> value="{{ $cart->jumlah_barang }}" autocomplete="off" size="2">
-                                            <?php echo "<a class=\"cart_quantity_down\" href=\"\" onclick=\"var effect = document.getElementById('qty$i'); var qty$i = effect.value; if( !isNaN( qty$i )) effect.value++;return false;\"> + </a>" ?>
+                                            <a onclick="increment(`<?php echo 'test'.$i ?>`, `<?php echo 'qty'.$i ?>`)">+</a>
                                         </div>
                                     </td>
                                     <td class="cart_total">
@@ -233,7 +232,7 @@
                 </div>
             </div>
         </section> <!--/#cart_items-->
-
+            
         <section id="do_action">
             <div class="container">
                 <div class="heading">
@@ -321,8 +320,33 @@
                                     </span>
                                 </li>
                             </ul>
-                            <a class="btn btn-default update" href="">Update</a>
-                            <a class="btn btn-default check_out" href="/checkout">Check Out</a>
+                            <form method="post" action="/cartupdate">
+                                {{ csrf_field() }}
+                                <?php $i=0;?>
+                                @foreach ($carts as $cart)
+                                <?php
+                                    $i++;
+                                ?>
+                                <input type="hidden" <?php echo "name=\"test$i\" "?> <?php echo "id=\"test$i\" "?> type="text" value="{{$cart->jumlah_barang}}">
+                                @endforeach
+                                <button type="submit" class="btn btn-default update">Update</button>
+                                <a class="btn btn-default check_out" href="/checkout">Check Out</a>
+                            </form>
+                            <script>
+                                function increment(hidden, qty) {
+                                    document.getElementById(hidden).value++;
+                                    document.getElementById(qty).value++;
+                                }
+                                function decrement(hidden, qty) {
+                                    if (document.getElementById(qty).value <= 1) {
+                                        
+                                    } else {
+                                        document.getElementById(hidden).value--;
+                                        document.getElementById(qty).value--;
+                                    }
+                                    
+                                }
+                            </script>
                         </div>
                     </div>
                 </div>

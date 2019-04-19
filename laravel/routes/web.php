@@ -24,6 +24,7 @@ Route::get('/product-details', 'home\productDetailsController@show');
 Route::get('/cart', 'home\cartController@show');
 Route::get('/cartdel{id_transdetail}', 'home\cartController@destroy');
 Route::post('/cart', 'home\cartController@store');
+Route::post('/cartupdate', 'home\cartController@update');
 Route::post('/wishlist', 'home\wishlistController@store');
 Route::get('/checkout', 'home\checkoutController@show');
 Route::post('/checkoutpay', 'home\checkoutController@store');

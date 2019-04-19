@@ -112,9 +112,31 @@ class cartController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $id_cust = \Session::get('customer.0')->id_cust;
+        //liat dah ada transaksi aktif ato belom
+        $transaksi = \App\transaksi::where('id_cust', $id_cust)->where('status', 'pending')->get();
+        if ($transaksi->count() == 0) {
+            $id_trans = \DB::table('transaksis')->select('id_trans')->where('id_cust', $id_cust)->where('status', 'pending')->first();
+        } else {
+            $id_trans = \DB::table('transaksis')->select('id_trans')->where('id_cust', $id_cust)->where('status', 'pending')->first()->id_trans;
+        }
+        $transaksi_details = \App\transaksiDetail::where('id_trans', $id_trans)->get();
+        
+        $carts = \DB::table('transaksi_details')
+                ->join('produks', 'transaksi_details.id_produk', '=', 'produks.id_produk')->select('produks.*', 'transaksi_details.*')->where('id_trans', $id_trans)->get();
+
+        
+        $i = 0;
+        foreach  ($carts as $cart) {
+            $i++;
+            $total_barang = $request->input("test".$i);
+            \DB::update('update transaksi_details set jumlah_barang =  ? where id_transdetail = ?', [$total_barang, $cart->id_transdetail]);
+        }
+        $carts = \DB::table('transaksi_details')
+                ->join('produks', 'transaksi_details.id_produk', '=', 'produks.id_produk')->select('produks.*', 'transaksi_details.*')->where('id_trans', $id_trans)->get();
+        return view('template.cart', ['carts' => $carts]);
     }
 
     /**
