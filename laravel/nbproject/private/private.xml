@@ -2,12 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="5"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/D:/Kuliah/Semester%204/PBP/Tubes/laravel/app/Http/Controllers/home/indexController.php</file>
-            <file>file:/D:/Kuliah/Semester%204/PBP/Tubes/laravel/resources/views/template/index.blade.php</file>
-            <file>file:/D:/Kuliah/Semester%204/PBP/Tubes/laravel/app/Http/Controllers/home/cartController.php</file>
-            <file>file:/D:/Kuliah/Semester%204/PBP/Tubes/laravel/routes/web.php</file>
-            <file>file:/D:/Kuliah/Semester%204/PBP/Tubes/laravel/resources/views/template/cart.blade.php</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>
