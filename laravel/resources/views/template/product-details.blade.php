@@ -6,13 +6,13 @@
         <meta name="description" content="">
         <meta name="author" content="">
         <title>Product Details | E-Shopper</title>
-        <link href="css/bootstrap.min.css" rel="stylesheet">
-        <link href="css/font-awesome.min.css" rel="stylesheet">
-        <link href="css/prettyPhoto.css" rel="stylesheet">
-        <link href="css/price-range.css" rel="stylesheet">
-        <link href="css/animate.css" rel="stylesheet">
-        <link href="css/main.css" rel="stylesheet">
-        <link href="css/responsive.css" rel="stylesheet">
+        <link href="/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/css/font-awesome.min.css" rel="stylesheet">
+        <link href="/css/prettyPhoto.css" rel="stylesheet">
+        <link href="/css/price-range.css" rel="stylesheet">
+        <link href="/css/animate.css" rel="stylesheet">
+        <link href="/css/main.css" rel="stylesheet">
+        <link href="/css/responsive.css" rel="stylesheet">
         <!--[if lt IE 9]>
         <script src="js/html5shiv.js"></script>
         <script src="js/respond.min.js"></script>
@@ -285,12 +285,12 @@
 
                         </div>
                     </div>
-
+                    @foreach($produks as $produk)
                     <div class="col-sm-9 padding-right">
                         <div class="product-details"><!--product-details-->
                             <div class="col-sm-5">
                                 <div class="view-product">
-                                    <img src="images/product-details/1.jpg" alt="" />
+                                    <img src="/{{ $produk->image }}" alt="" height='266' width='381'/>
                                     <h3>ZOOM</h3>
                                 </div>
                                 <div id="similar-product" class="carousel slide" data-ride="carousel">
@@ -328,12 +328,12 @@
                             <div class="col-sm-7">
                                 <div class="product-information"><!--/product-information-->
                                     <img src="images/product-details/new.jpg" class="newarrival" alt="" />
-                                    <h2>Anne Klein Sleeveless Colorblock Scuba</h2>
+                                    <h2>{{ $produk->nama_produk }}</h2>
                                     <p>Web ID: 1089772</p>
                                     <img src="images/product-details/rating.png" alt="" />
                                     <span>
-                                        <span>US $59</span>
-                                        <label>Quantity:</label>
+                                        <span>US ${{ $produk->harga_produk }}</span>
+                                        <label>Quantity: ${{ $produk->stok }}</label>
                                         <input type="text" value="3" />
                                         <button type="button" class="btn btn-fefault cart">
                                             <i class="fa fa-shopping-cart"></i>
@@ -630,6 +630,7 @@
                         </div><!--/recommended_items-->
 
                     </div>
+                    @endforeach
                 </div>
             </div>
         </section>

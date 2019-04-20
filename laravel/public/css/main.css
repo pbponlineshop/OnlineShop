@@ -149,7 +149,7 @@ a#scrollUp i{
 }
 
 .header-middle .container .row .col-sm-8 {
-	padding-right:0;
+    padding-right:0;
 }
 
 .usa {
@@ -1434,6 +1434,22 @@ h2.title {
 
 .login-form {
 
+}
+
+#adminform {
+  text-align: center;
+  width : 400px;
+  height : 220px;
+  margin-left: 50%;
+  margin-right: 50%;
+}
+
+#adminform h1 {
+  width : 400px;
+  color: #696763;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  margin-bottom: 30px;
 }
 
 .signup-form {

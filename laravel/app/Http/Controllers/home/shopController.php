@@ -46,8 +46,8 @@ class shopController extends Controller
      */
     public function show()
     {
-        //
-        return view('template.shop');
+        $produks = \App\Produk::all();
+        return view('template.shop', ['produks' => $produks]);
     }
 
     /**

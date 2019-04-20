@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\home;
 
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\Controller;
 
 class productDetailsController extends Controller
@@ -44,12 +44,11 @@ class productDetailsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function show($id_produk)
     {
-        //
-        return view('template.product-details');
+        $produks = \App\produk::where('id_produk', $id_produk)->get();
+        return view('template.product-details', ['produks'=>$produks]);
     }
-
     /**
      * Show the form for editing the specified resource.
      *
