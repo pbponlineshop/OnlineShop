@@ -41,7 +41,7 @@ class wishlistController extends Controller
     public function store(Request $request)
     {
         //
-		if(!\Session::get('customer')) {
+        if(!\Session::get('customer')) {
             return view('template.login');
         } else {
             $id_produk = $request->input('id_produk');
@@ -56,8 +56,6 @@ class wishlistController extends Controller
             } else {
                 return \Redirect::back()->with('alert', 'is already in wishlist');
             }
-
-            
         }
     }
 
@@ -78,7 +76,6 @@ class wishlistController extends Controller
                         ->get();
         
         return view('template.wishlist', ['wishlists' => $wishlists]);
-
     }
 
     /**

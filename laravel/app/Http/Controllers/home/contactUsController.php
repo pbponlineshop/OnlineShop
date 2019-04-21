@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\home;
 
-use App\Produk;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 

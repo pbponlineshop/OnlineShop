@@ -409,21 +409,21 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </form>
-									
+                                    </form>    
+                                    
                                     <div class="choose">
                                         <ul class="nav nav-pills nav-justified">
                                             <li>
                                                 <form method="post" action="/wishlist">
                                                     {{ csrf_field() }}
                                                     <input type="hidden" name="id_produk" class="form-control" value="{{ $produk->id_produk }}">
-                                                    <button type="submit"><i class="fa fa-plus-square"></i>Add to wishlist
-													@if (session('alert'))
-														<script type="text/javascript">alert("Is already in wishlist!");</script>
-														<?php
-															session()->forget('alert');
-														?>
-													@endif
+                                                    <button type="submit"><i class="fa fa-plus-square"></i>Add to wishlist</button>
+                                                    @if (session('alert'))
+                                                        <script type="text/javascript">alert("Is already in wishlist!");</script>
+                                                        <?php
+                                                                session()->forget('alert');
+                                                        ?>
+                                                    @endif
                                                 </form>
                                             </li>
                                         </ul>
