@@ -213,7 +213,7 @@
                                         <div class="cart_quantity_button">
                                             <a onclick="decrement(`<?php echo 'test'.$i ?>`, `<?php echo 'qty'.$i ?>`)">-</a>
                                             <input class="cart_quantity_input" <?php echo "id=\"qty$i\" " ?> step="1" min="1" type="text" <?php echo "name=\"quantity$i\" "?> value="{{ $cart->jumlah_barang }}" autocomplete="off" size="2">
-                                            <a onclick="increment(`<?php echo 'test'.$i ?>`, `<?php echo 'qty'.$i ?>`)">+</a>
+                                            <a onclick="increment(`<?php echo 'test'.$i ?>`, `<?php echo 'qty'.$i ?>`, {{ $cart->stok }})">+</a>
                                         </div>
                                     </td>
                                     <td class="cart_total">
@@ -333,9 +333,11 @@
                                 <a class="btn btn-default check_out" href="/checkout">Check Out</a>
                             </form>
                             <script>
-                                function increment(hidden, qty) {
-                                    document.getElementById(hidden).value++;
-                                    document.getElementById(qty).value++;
+                                function increment(hidden, qty, stok) {
+                                    if (document.getElementById(qty).value < stok) {
+                                        document.getElementById(hidden).value++;
+                                        document.getElementById(qty).value++;
+                                    }
                                 }
                                 function decrement(hidden, qty) {
                                     if (document.getElementById(qty).value <= 1) {
