@@ -94,7 +94,7 @@
                             <div class="shop-menu pull-right">
                                 <ul class="nav navbar-nav">
                                     <li><a href="#"><i class="fa fa-user"></i>  <?php echo $account?> </a></li>
-                                    <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
+                                    <li><a href="/wishlist"><i class="fa fa-star"></i> Wishlist</a></li>
                                     <li><a href="/checkout"><i class="fa fa-crosshairs"></i> Checkout</a></li>
                                     <li><a href="/cart"><i class="fa fa-shopping-cart"></i> Cart</a></li>
                                     
@@ -409,8 +409,8 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </form>    
-                                    
+                                    </form>
+									
                                     <div class="choose">
                                         <ul class="nav nav-pills nav-justified">
                                             <li>
@@ -418,6 +418,12 @@
                                                     {{ csrf_field() }}
                                                     <input type="hidden" name="id_produk" class="form-control" value="{{ $produk->id_produk }}">
                                                     <button type="submit"><i class="fa fa-plus-square"></i>Add to wishlist
+													@if (session('alert'))
+														<script type="text/javascript">alert("Is already in wishlist!");</script>
+														<?php
+															session()->forget('alert');
+														?>
+													@endif
                                                 </form>
                                             </li>
                                         </ul>

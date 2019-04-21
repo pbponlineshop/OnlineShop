@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <?php
-    $account = Session::get('customer.0')->nama_cust;
+    if(!Session::get('customer')) {
+        $account = Session::get('account');
+    } else {
+        $account = Session::get('customer.0')->nama_cust;
+    }
 ?>
 <html lang="en">
     <head>
@@ -8,7 +12,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="">
         <meta name="author" content="">
-        <title>Cart | E-Shopper</title>
+        <title>Wishlist | E-Shopper</title>
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/font-awesome.min.css" rel="stylesheet">
         <link href="css/prettyPhoto.css" rel="stylesheet">
@@ -90,9 +94,9 @@
                             <div class="shop-menu pull-right">
                                 <ul class="nav navbar-nav">
                                     <li><a href=""><i class="fa fa-user"></i> <?php echo $account?></a></li>
-                                    <li><a href="/wishlist"><i class="fa fa-star"></i> Wishlist</a></li>
+                                    <li><a href="/wishlist" class="active"><i class="fa fa-star"></i> Wishlist</a></li>
                                     <li><a href="/checkout"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-                                    <li><a href="/cart" class="active"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+                                    <li><a href="/cart"><i class="fa fa-shopping-cart"></i> Cart</a></li>
                                     
                                     <?php
                                         if(!Session::get('customer')) {
@@ -127,12 +131,12 @@
                             <div class="mainmenu pull-left">
                                 <ul class="nav navbar-nav collapse navbar-collapse">
                                     <li><a href="/index">Home</a></li>
-                                    <li class="dropdown"><a href="#" class="active">Shop<i class="fa fa-angle-down"></i></a>
+                                    <li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
                                         <ul role="menu" class="sub-menu">
-                                            <li><a href="/shop">Products</a></li>
+                                            <li><a href="/shop" class="active">Products</a></li>
                                             <li><a href="/product-details">Product Details</a></li> 
                                             <li><a href="/checkout">Checkout</a></li> 
-                                            <li><a href="/cart" class="active">Cart</a></li> 
+                                            <li><a href="/cart">Cart</a></li> 
                                             
                                             <?php
                                                 if(!Session::get('customer')) {
@@ -168,190 +172,223 @@
             </div>
         </header>
 
-        <section id="cart_items">
+        <section id="advertisement">
             <div class="container">
-                <div class="breadcrumbs">
-                    <ol class="breadcrumb">
-                        <li><a href="#">Home</a></li>
-                        <li class="active">Shopping Cart</li>
-                    </ol>
-                </div>
-                <div class="table-responsive cart_info">
-                    <table class="table table-condensed">
-                        <thead>
-                            <tr class="cart_menu">
-                                <td class="image">Item</td>
-                                <td class="description"></td>
-                                <td class="price">Price</td>
-                                <td class="quantity">Quantity</td>
-                                <td class="total">Total</td>
-                                <td></td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                           <?php
-                                $total_harga = 0;
-                                $i = 0;
-                                $x = 0;
-                           ?> 
-                            @foreach($carts as $cart)
-                                <?php 
-                                    $i++;
-                                ?>
-                                <tr>
-                                    <td class="cart_product">
-                                        <a href=""><img src="{{ $cart->image }}" height='110' width='110' alt=""></a>
-                                    </td>
-                                    <td class="cart_description">
-                                        <h4><a href="">Colorblock Scuba</a></h4>
-                                        <p>Web ID: 1089772</p>
-                                    </td>
-                                    <td class="cart_price">
-                                        <p>{{ $cart->harga_satuan }}</p>
-                                    </td>
-                                    <td class="cart_quantity">
-                                        <div class="cart_quantity_button">
-                                            <a onclick="decrement(`<?php echo 'test'.$i ?>`, `<?php echo 'qty'.$i ?>`)">-</a>
-                                            <input class="cart_quantity_input" <?php echo "id=\"qty$i\" " ?> step="1" min="1" type="text" <?php echo "name=\"quantity$i\" "?> value="{{ $cart->jumlah_barang }}" autocomplete="off" size="2">
-                                            <a onclick="increment(`<?php echo 'test'.$i ?>`, `<?php echo 'qty'.$i ?>`)">+</a>
-                                        </div>
-                                    </td>
-                                    <td class="cart_total">
-                                        <p class="cart_total_price"><?php echo $cart->harga_satuan * $cart->jumlah_barang?></p>
-                                    </td>
-                                    <td class="cart_delete">
-                                        <a class="cart_quantity_delete" href="/cartdel{{ $cart->id_transdetail }}"><i class="fa fa-times"></i></a>
-                                    </td>
-                                </tr>
-                                <?php
-                                    $total_harga = $total_harga + ($cart->harga_satuan * $cart->jumlah_barang); 
-                                ?>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
+                <img src="images/shop/advertisement.jpg" alt="" />
             </div>
-        </section> <!--/#cart_items-->
-            
-        <section id="do_action">
+        </section>
+
+        <section>
             <div class="container">
-                <div class="heading">
-                    <h3>What would you like to do next?</h3>
-                    <p>Choose if you have a discount code or reward points you want to use or would like to estimate your delivery cost.</p>
-                </div>
                 <div class="row">
-                    <div class="col-sm-6">
-                        <div class="chose_area">
-                            <ul class="user_option">
-                                <li>
-                                    <input type="checkbox">
-                                    <label>Use Coupon Code</label>
-                                </li>
-                                <li>
-                                    <input type="checkbox">
-                                    <label>Use Gift Voucher</label>
-                                </li>
-                                <li>
-                                    <input type="checkbox">
-                                    <label>Estimate Shipping & Taxes</label>
-                                </li>
-                            </ul>
-                            <ul class="user_info">
-                                <li class="single_field">
-                                    <label>Country:</label>
-                                    <select>
-                                        <option>United States</option>
-                                        <option>Bangladesh</option>
-                                        <option>UK</option>
-                                        <option>India</option>
-                                        <option>Pakistan</option>
-                                        <option>Ucrane</option>
-                                        <option>Canada</option>
-                                        <option>Dubai</option>
-                                    </select>
+                    <div class="col-sm-3">
+                        <div class="left-sidebar">
+                            <h2>Category</h2>
+                            <div class="panel-group category-products" id="accordian"><!--category-productsr-->
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordian" href="#sportswear">
+                                                <span class="badge pull-right"><i class="fa fa-plus"></i></span>
+                                                Sportswear
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="sportswear" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <ul>
+                                                <li><a href="">Nike </a></li>
+                                                <li><a href="">Under Armour </a></li>
+                                                <li><a href="">Adidas </a></li>
+                                                <li><a href="">Puma</a></li>
+                                                <li><a href="">ASICS </a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordian" href="#mens">
+                                                <span class="badge pull-right"><i class="fa fa-plus"></i></span>
+                                                Mens
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="mens" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <ul>
+                                                <li><a href="">Fendi</a></li>
+                                                <li><a href="">Guess</a></li>
+                                                <li><a href="">Valentino</a></li>
+                                                <li><a href="">Dior</a></li>
+                                                <li><a href="">Versace</a></li>
+                                                <li><a href="">Armani</a></li>
+                                                <li><a href="">Prada</a></li>
+                                                <li><a href="">Dolce and Gabbana</a></li>
+                                                <li><a href="">Chanel</a></li>
+                                                <li><a href="">Gucci</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
 
-                                </li>
-                                <li class="single_field">
-                                    <label>Region / State:</label>
-                                    <select>
-                                        <option>Select</option>
-                                        <option>Dhaka</option>
-                                        <option>London</option>
-                                        <option>Dillih</option>
-                                        <option>Lahore</option>
-                                        <option>Alaska</option>
-                                        <option>Canada</option>
-                                        <option>Dubai</option>
-                                    </select>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordian" href="#womens">
+                                                <span class="badge pull-right"><i class="fa fa-plus"></i></span>
+                                                Womens
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="womens" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <ul>
+                                                <li><a href="">Fendi</a></li>
+                                                <li><a href="">Guess</a></li>
+                                                <li><a href="">Valentino</a></li>
+                                                <li><a href="">Dior</a></li>
+                                                <li><a href="">Versace</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title"><a href="#">Kids</a></h4>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title"><a href="#">Fashion</a></h4>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title"><a href="#">Households</a></h4>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title"><a href="#">Interiors</a></h4>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title"><a href="#">Clothing</a></h4>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title"><a href="#">Bags</a></h4>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title"><a href="#">Shoes</a></h4>
+                                    </div>
+                                </div>
+                            </div><!--/category-productsr-->
 
-                                </li>
-                                <li class="single_field zip-field">
-                                    <label>Zip Code:</label>
-                                    <input type="text">
-                                </li>
-                            </ul>
-                            <a class="btn btn-default update" href="">Get Quotes</a>
-                            <a class="btn btn-default check_out" href="">Continue</a>
+                            <div class="brands_products"><!--brands_products-->
+                                <h2>Brands</h2>
+                                <div class="brands-name">
+                                    <ul class="nav nav-pills nav-stacked">
+                                        <li><a href=""> <span class="pull-right">(50)</span>Acne</a></li>
+                                        <li><a href=""> <span class="pull-right">(56)</span>Grüne Erde</a></li>
+                                        <li><a href=""> <span class="pull-right">(27)</span>Albiro</a></li>
+                                        <li><a href=""> <span class="pull-right">(32)</span>Ronhill</a></li>
+                                        <li><a href=""> <span class="pull-right">(5)</span>Oddmolly</a></li>
+                                        <li><a href=""> <span class="pull-right">(9)</span>Boudestijn</a></li>
+                                        <li><a href=""> <span class="pull-right">(4)</span>Rösch creative culture</a></li>
+                                    </ul>
+                                </div>
+                            </div><!--/brands_products-->
+
+                            <div class="price-range"><!--price-range-->
+                                <h2>Price Range</h2>
+                                <div class="well">
+                                    <input type="text" class="span2" value="" data-slider-min="0" data-slider-max="600" data-slider-step="5" data-slider-value="[250,450]" id="sl2" ><br />
+                                    <b>$ 0</b> <b class="pull-right">$ 600</b>
+                                </div>
+                            </div><!--/price-range-->
+
+                            <div class="shipping text-center"><!--shipping-->
+                                <img src="images/home/shipping.jpg" alt="" />
+                            </div><!--/shipping-->
+
                         </div>
                     </div>
-                    <div class="col-sm-6">
-                        <div class="total_area">
-                            <ul>
-                                <li>Cart Sub Total 
-                                    <span>
-                                        <?php
-                                            echo "$", $total_harga;
-                                        ?>
-                                    </span>
-                                </li>
-                                <li>Eco Tax 
-                                    <span>
-                                        <?php
-                                            echo "$", $total_harga * 0.05;
-                                        ?>
-                                    </span>
-                                </li>
-                                <li>Shipping Cost <span>Free</span></li>
-                                <li>Total
-                                    <span>
-                                        <?php
-                                            echo "$", $total_harga + ($total_harga * 0.05);
-                                        ?>
-                                    </span>
-                                </li>
-                            </ul>
-                            <form method="post" action="/cartupdate">
-                                {{ csrf_field() }}
-                                <?php $i=0;?>
-                                @foreach ($carts as $cart)
-                                <?php
-                                    $i++;
-                                ?>
-                                <input type="hidden" <?php echo "name=\"test$i\" "?> <?php echo "id=\"test$i\" "?> type="text" value="{{$cart->jumlah_barang}}">
-                                @endforeach
-                                <button type="submit" class="btn btn-default update">Update</button>
-                                <a class="btn btn-default check_out" href="/checkout">Check Out</a>
-                            </form>
-                            <script>
-                                function increment(hidden, qty) {
-                                    document.getElementById(hidden).value++;
-                                    document.getElementById(qty).value++;
-                                }
-                                function decrement(hidden, qty) {
-                                    if (document.getElementById(qty).value <= 1) {
-                                        
-                                    } else {
-                                        document.getElementById(hidden).value--;
-                                        document.getElementById(qty).value--;
-                                    }
+
+                    <div class="col-sm-9 padding-right">
+                        <div class="features_items"><!--all_items-->
+                            <h2 class="title text-center">Wishlist</h2>
+                            @foreach($wishlists as $wishlist)
+                                <div class="col-sm-4">
+                                <div class="product-image-wrapper">
+                                    <form method="post" action="/cart">
+                                        {{ csrf_field() }}
+                                        <div class="single-products">
+                                            <a href="/product-details">
+                                                <div class="productinfo text-center">
+                                                    <img src='{{ $wishlist->image }}' alt="" />
+                                                    <h2>${{ $wishlist->harga_produk }}</h2>
+                                                    <p>{{ $wishlist->nama_produk }}</p>
+                                                    <div class="form-group">
+                                                        <input type="hidden" name="id_produk" class="form-control" value="{{ $wishlist->id_produk }}">
+                                                        <input type="hidden" name="harga_produk" class="form-control" value="{{ $wishlist->harga_produk }}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <button type="submit" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            <a href="/product-details/{{ $wishlist->id_produk }}">
+                                            <!--<a href="/product-details">-->
+                                                <div class="product-overlay">
+                                                    <div class="overlay-content">
+                                                        <h2>${{ $wishlist->harga_produk }}</h2>
+                                                        <p>{{ $wishlist->nama_produk }}</p>
+                                                        <div class="form-group">
+                                                            <input type="hidden" name="id_produk" class="form-control" value="{{ $wishlist->id_produk }}">
+                                                            <input type="hidden" name="harga_produk" class="form-control" value="{{ $wishlist->harga_produk }}">
+                                                        </div>
+                                                        <div class="form-group">
+                                                                <button type="submit" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </form>    
                                     
-                                }
-                            </script>
-                        </div>
+                                    <div class="choose">
+                                        <ul class="nav nav-pills nav-justified">
+                                            <li>
+                                                <form method="get" action="/wishlistdel {{ $wishlist->id_wishlist }}">
+                                                    {{ csrf_field() }}
+                                                    <input type="hidden" name="id_produk" class="form-control" value="{{ $wishlist->id_produk }}">
+                                                    <button type="submit"><i class="fa fa-plus-square"></i> Remove from wishlist
+                                                </form>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            @endforeach
+
+                            <ul class="pagination">
+                                <li class="active"><a href="">1</a></li>
+                                <li><a href="">2</a></li>
+                                <li><a href="">3</a></li>
+                                <li><a href="">&raquo;</a></li>
+                            </ul>
+                        </div><!--all_items-->
                     </div>
                 </div>
             </div>
-        </section><!--/#do_action-->
+        </section>
 
         <footer id="footer"><!--Footer-->
             <div class="footer-top">
@@ -503,7 +540,7 @@
             <div class="footer-bottom">
                 <div class="container">
                     <div class="row">
-                        <p class="pull-left">Copyright © 2013 E-SHOPPER Inc. All rights reserved.</p>
+                        <p class="pull-left">Copyright © 2013 E-Shopper. All rights reserved.</p>
                         <p class="pull-right">Designed by <span><a target="_blank" href="http://www.themeum.com">Themeum</a></span></p>
                     </div>
                 </div>
@@ -514,8 +551,9 @@
 
 
         <script src="js/jquery.js"></script>
-        <script src="js/bootstrap.min.js"></script>
+        <script src="js/price-range.js"></script>
         <script src="js/jquery.scrollUp.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
         <script src="js/jquery.prettyPhoto.js"></script>
         <script src="js/main.js"></script>
     </body>
