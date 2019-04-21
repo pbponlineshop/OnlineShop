@@ -24,6 +24,7 @@ Route::get('/product-details/{id_produk}', 'home\productDetailsController@show')
 //Route::get('/product-details', 'home\productDetailsController@show');
 Route::get('/cart', 'home\cartController@show');
 Route::get('/cartdel{id_transdetail}', 'home\cartController@destroy');
+Route::get('/wishlistdel{id_wishlist}', 'home\wishlistController@destroy');
 Route::post('/cart', 'home\cartController@store');
 Route::post('/cartupdate', 'home\cartController@update');
 Route::post('/wishlist', 'home\wishlistController@store');
@@ -34,6 +35,7 @@ Route::post('/login', 'home\loginController@store');
 Route::get('/blog', 'home\blogController@show');
 Route::get('/blog-single', 'home\blogSingleController@show');
 Route::get('/contact-us', 'home\contactUsController@show');
+Route::get('/wishlist', 'home\wishlistController@show');
 
 Route::get('getsession','SessionController@accessSessionData');
 Route::get('setsession','SessionController@storeSessionData');

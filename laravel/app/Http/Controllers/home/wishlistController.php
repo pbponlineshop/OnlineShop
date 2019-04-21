@@ -18,6 +18,10 @@ class wishlistController extends Controller
         //
     }
 
+    public function notification()
+    {
+        return '<script type="text/javascript">alert("Is already in wishlist!");</script>';
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -43,8 +47,17 @@ class wishlistController extends Controller
             $id_produk = $request->input('id_produk');
             $id_cust = \Session::get('customer.0')['id_cust'];
 
-            \DB::insert('insert into wishlists (id_cust, id_produk) values (?, ?)', [$id_cust, $id_produk]);
-            return view('template.shop');
+            $total_barang = \App\wishlist::where('id_produk', $id_produk)->get();
+
+            //cek barang sudah ada diwishlist atau belum
+            if ($total_barang->count() == 0) {
+                \DB::insert('insert into wishlists (id_cust, id_produk) values (?, ?)', [$id_cust, $id_produk]);
+                return \Redirect::back();
+            } else {
+                return \Redirect::back()->with('alert', 'is already in wishlist');
+            }
+
+            
         }
     }
 
@@ -54,9 +67,18 @@ class wishlistController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
         //
+        $id_cust = \Session::get('customer.0')->id_cust;
+        $wishlists = \DB::table('produks')
+                        ->join('wishlists', 'wishlists.id_produk', '=', 'produks.id_produk')
+                        ->select('produks.id_produk', 'produks.nama_produk', 'produks.desc_produk', 'produks.harga_produk', 'produks.image', 'wishlists.id_wishlist')
+                        ->where('id_cust',$id_cust)
+                        ->get();
+        
+        return view('template.wishlist', ['wishlists' => $wishlists]);
+
     }
 
     /**
@@ -91,5 +113,8 @@ class wishlistController extends Controller
     public function destroy($id)
     {
         //
+        \DB::delete('delete from wishlists where id_wishlist = ?', [$id]);
+        
+        return $this->show();
     }
 }
