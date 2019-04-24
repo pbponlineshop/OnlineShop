@@ -133,9 +133,7 @@
                                     <li><a href="/index" class="active">Home</a></li>
                                     <li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
                                         <ul role="menu" class="sub-menu">
-                                            <li><a href="/shop">Products</a></li>
-                                            <li><a href="/product-details">Product Details</a></li> 
-                                            <li><a href="/checkout">Checkout</a></li> 
+                                            <li><a href="/shop">Products</a></li>                                            <li><a href="/checkout">Checkout</a></li> 
                                             <li><a href="/cart">Cart</a></li> 
                                             <?php
                                                 if(!Session::get('customer')) {
