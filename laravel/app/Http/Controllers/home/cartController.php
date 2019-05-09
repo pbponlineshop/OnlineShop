@@ -42,28 +42,29 @@ class cartController extends Controller
             $harga_produk = $request->input('harga_produk');
             $id_cust = \Session::get('customer.0')['id_cust'];
             $transaksi = \App\transaksi::where('id_cust', $id_cust)->where('status', 'pending')->get();
-            $id_trans = \DB::table('transaksis')->select('id_trans')->where('id_cust', $id_cust)->where('status', 'pending')->first()->id_trans;
-            $barang = \App\transaksiDetail::where('id_produk', $id_produk)->where('id_trans', $id_trans)->get();
-            
-            //liat stok masih ada ato ngga
-            $stok_barang = \DB::table('produks')->select('stok')->where('id_produk', $id_produk)->first()->stok;
+            //$id_trans = \DB::table('transaksis')->select('id_trans')->where('id_cust', $id_cust)->where('status', 'pending')->first();
             
 
             //liat dah ada transaksi aktif ato belom
             if ($transaksi->count() == 0) {
                 \DB::insert('insert into transaksis (ongkir, tgl_trans, id_cust, status) values (?, ?, ?, ?)', [0, NOW(), $id_cust, 'pending']);
             }
+            $id_trans = \DB::table('transaksis')->select('id_trans')->where('id_cust', $id_cust)->where('status', 'pending')->first()->id_trans;
+            $brgInCart = \App\transaksiDetail::where('id_produk', $id_produk)->where('id_trans', $id_trans)->get();
             
+            //liat stok masih ada ato ngga
+            $stok_barang = \DB::table('produks')->select('stok')->where('id_produk', $id_produk)->first()->stok;
             //liat barang udah ada d cart ato belom
-            if ($barang->count() == 0) {
+            if ($brgInCart->count() == 0) {
                 if ($stok_barang > 0) {
                     \DB::insert('insert into transaksi_details (harga_satuan, jumlah_barang, id_trans, id_produk) values (?, ?, ?, ?)', [$harga_produk, 1, $id_trans, $id_produk]);
                 }
-            } else {
+            } 
+            else {
                 $total_barang = \DB::table('transaksi_details')->select('jumlah_barang')->where('id_produk', $id_produk)->where('id_trans', $id_trans)->first()->jumlah_barang;
                 $total_barang += 1;
                 
-                if (stok_barang >= $total_barang) {
+                if ($stok_barang >= $total_barang) {
                     $id_transdetail = \DB::table('transaksi_details')->select('id_transdetail')->where('id_produk', $id_produk)->where('id_trans', $id_trans)->first()->id_transdetail;
                     \DB::update('update transaksi_details set jumlah_barang =  ? where id_transdetail = ?', [$total_barang, $id_transdetail]);                   
                 }

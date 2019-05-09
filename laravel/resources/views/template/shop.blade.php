@@ -366,11 +366,32 @@
                                     <div class="choose">
                                         <ul class="nav nav-pills nav-justified">
                                             <li>
-                                                <form method="post" action="/wishlist">
-                                                    {{ csrf_field() }}
-                                                    <input type="hidden" name="id_produk" class="form-control" value="{{ $produk->id_produk }}">
-                                                    <button type="submit"><i class="fa fa-plus-square"></i>Add to wishlist
-                                                </form>
+                                                <?php
+                                                $check = false;
+                                                    foreach ($wishlists as $wishlist) {
+                                                        if ($produk->id_produk == $wishlist->id_produk) {
+                                                            $check = true;
+                                                        }
+                                                    }
+                                                    if ($check) {
+                                                ?>
+                                                        <form method="get" action="/wishlistdel {{ $wishlist->id_wishlist }}">
+                                                            {{ csrf_field() }}
+                                                                <input type="hidden" name="id_produk" class="form-control" value="{{ $wishlist->id_produk }}">
+                                                                <button type="submit"><i class="fa fa-plus-square"></i> Remove from wishlist
+                                                        </form> 
+                                                
+                                                <?php
+                                                    } else {
+                                                ?>
+                                                        <form method="post" action="/wishlist">
+                                                        {{ csrf_field() }}
+                                                            <input type="hidden" name="id_produk" class="form-control" value="{{ $produk->id_produk }}">
+                                                            <button type="submit"><i class="fa fa-plus-square"></i>Add to wishlist
+                                                        </form>
+                                                <?php
+                                                    }
+                                                ?>
                                             </li>
                                         </ul>
                                     </div>

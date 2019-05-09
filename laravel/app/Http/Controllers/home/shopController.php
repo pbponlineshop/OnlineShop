@@ -46,8 +46,14 @@ class shopController extends Controller
      */
     public function show()
     {
+        $id_cust = \Session::get('customer.0')->id_cust;
         $produks = \App\Produk::all();
-        return view('template.shop', ['produks' => $produks]);
+        $wishlists = \DB::table('produks')
+                        ->join('wishlists', 'wishlists.id_produk', '=', 'produks.id_produk')
+                        ->select('produks.id_produk', 'produks.nama_produk', 'produks.desc_produk', 'produks.harga_produk', 'produks.image', 'wishlists.id_wishlist')
+                        ->where('id_cust',$id_cust)
+                        ->get();
+        return view('template.shop', ['produks' => $produks], ['wishlists' => $wishlists]);
     }
 
     /**

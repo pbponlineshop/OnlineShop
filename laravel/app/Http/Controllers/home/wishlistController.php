@@ -47,7 +47,7 @@ class wishlistController extends Controller
             $id_produk = $request->input('id_produk');
             $id_cust = \Session::get('customer.0')['id_cust'];
 
-            $total_barang = \App\wishlist::where('id_produk', $id_produk)->get();
+            $total_barang = \App\wishlist::where('id_produk', $id_produk)->where('id_cust', $id_cust)->get();
 
             //cek barang sudah ada diwishlist atau belum
             if ($total_barang->count() == 0) {
