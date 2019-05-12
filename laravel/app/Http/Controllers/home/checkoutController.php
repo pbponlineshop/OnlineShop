@@ -48,16 +48,15 @@ class checkoutController extends Controller
                 $id_trans = \DB::table('transaksis')->select('id_trans')->where('id_cust', $id_cust)->where('status', 'pending')->first()->id_trans;
             }
             
-            $transdetail = \App\transaksiDetail::where('id_trans', $id_trans)->get();
             //check ada produk yang dibeli ga, kalo gaada gausa update table
-            if ($transdetail->count() == 0) {
+            $transdetails = \App\transaksiDetail::where('id_trans', $id_trans)->get();
+            if ($transdetails->count() == 0) {
                 
             } else {
-                $produks = \DB::table('transaksi_details')->where('id_trans', $id_trans)->get();
-                
                 //update stock produk
-                foreach ($produks as $produk) {
-                    \DB::update('update produks set stok = ? where id_produk = ?', [$new_stock, $produk->id_produk]);
+                foreach ($transdetails as $transdetail) {
+                    $new_stock = (\DB::table('produks')->select('stok')->where('id_produk', $transdetail->id_produk)->first()->stok) - ($transdetail->jumlah_barang);
+                    \DB::update('update produks set stok = ? where id_produk = ?', [$new_stock, $transdetail->id_produk]);
                 }
                 
                 \DB::update('update transaksis set tgl_trans = ?, status =  ? where id_trans = ?', [NOW(), 'selesai', $id_trans]);

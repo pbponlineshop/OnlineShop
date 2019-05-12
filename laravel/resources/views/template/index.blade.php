@@ -66,29 +66,6 @@
                             <div class="logo pull-left">
                                 <a href="/index"><img src="images/home/logo.png" alt="" /></a>
                             </div>
-                            <div class="btn-group pull-right">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
-                                        USA
-                                        <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#">Canada</a></li>
-                                        <li><a href="#">UK</a></li>
-                                    </ul>
-                                </div>
-
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
-                                        DOLLAR
-                                        <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#">Canadian Dollar</a></li>
-                                        <li><a href="#">Pound</a></li>
-                                    </ul>
-                                </div>
-                            </div>
                         </div>
                         <div class="col-sm-8">
                             <div class="shop-menu pull-right">
@@ -153,15 +130,9 @@
                                             <li><a href="/blog">Blog List</a></li>
                                             <li><a href="/blog-single">Blog Single</a></li>
                                         </ul>
-                                    </li> 
-                                    <li><a href="404.html">404</a></li>
+                                    </li>
                                     <li><a href="/contact-us">Contact</a></li>
                                 </ul>
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="search_box pull-right">
-                                <input type="text" placeholder="Search"/>
                             </div>
                         </div>
                     </div>
@@ -237,152 +208,28 @@
         <section>
             <div class="container">
                 <div class="row">
-                    <div class="col-sm-3">
-                        <div class="left-sidebar">
-                            <h2>Category</h2>
-                            <div class="panel-group category-products" id="accordian"><!--category-productsr-->
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <h4 class="panel-title">
-                                            <a data-toggle="collapse" data-parent="#accordian" href="#sportswear">
-                                                <span class="badge pull-right"><i class="fa fa-plus"></i></span>
-                                                Sportswear
-                                            </a>
-                                        </h4>
-                                    </div>
-                                    <div id="sportswear" class="panel-collapse collapse">
-                                        <div class="panel-body">
-                                            <ul>
-                                                <li><a href="#">Nike </a></li>
-                                                <li><a href="#">Under Armour </a></li>
-                                                <li><a href="#">Adidas </a></li>
-                                                <li><a href="#">Puma</a></li>
-                                                <li><a href="#">ASICS </a></li>
-                                            </ul>
+                    <div class="features_items"><!--all_items-->
+                        <h2 class="title text-center">All Items</h2>
+                        @foreach($produks as $produk)
+                            <div class="col-sm-4">
+                            <div class="product-image-wrapper">
+                                <form method="post" action="/cart">
+                                    {{ csrf_field() }}
+                                    <div class="single-products">
+                                        <div class="productinfo text-center">
+                                            <img src='{{ $produk->image }}' alt="" />
+                                            <h2>${{ $produk->harga_produk }}</h2>
+                                            <p>{{ $produk->nama_produk }}</p>
+                                            <div class="form-group">
+                                                <input type="hidden" name="id_produk" class="form-control" value="{{ $produk->id_produk }}">
+                                                <input type="hidden" name="harga_produk" class="form-control" value="{{ $produk->harga_produk }}">
+                                            </div>
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <h4 class="panel-title">
-                                            <a data-toggle="collapse" data-parent="#accordian" href="#mens">
-                                                <span class="badge pull-right"><i class="fa fa-plus"></i></span>
-                                                Mens
-                                            </a>
-                                        </h4>
-                                    </div>
-                                    <div id="mens" class="panel-collapse collapse">
-                                        <div class="panel-body">
-                                            <ul>
-                                                <li><a href="#">Fendi</a></li>
-                                                <li><a href="#">Guess</a></li>
-                                                <li><a href="#">Valentino</a></li>
-                                                <li><a href="#">Dior</a></li>
-                                                <li><a href="#">Versace</a></li>
-                                                <li><a href="#">Armani</a></li>
-                                                <li><a href="#">Prada</a></li>
-                                                <li><a href="#">Dolce and Gabbana</a></li>
-                                                <li><a href="#">Chanel</a></li>
-                                                <li><a href="#">Gucci</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <h4 class="panel-title">
-                                            <a data-toggle="collapse" data-parent="#accordian" href="#womens">
-                                                <span class="badge pull-right"><i class="fa fa-plus"></i></span>
-                                                Womens
-                                            </a>
-                                        </h4>
-                                    </div>
-                                    <div id="womens" class="panel-collapse collapse">
-                                        <div class="panel-body">
-                                            <ul>
-                                                <li><a href="#">Fendi</a></li>
-                                                <li><a href="#">Guess</a></li>
-                                                <li><a href="#">Valentino</a></li>
-                                                <li><a href="#">Dior</a></li>
-                                                <li><a href="#">Versace</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <h4 class="panel-title"><a href="#">Kids</a></h4>
-                                    </div>
-                                </div>
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <h4 class="panel-title"><a href="#">Fashion</a></h4>
-                                    </div>
-                                </div>
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <h4 class="panel-title"><a href="#">Households</a></h4>
-                                    </div>
-                                </div>
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <h4 class="panel-title"><a href="#">Interiors</a></h4>
-                                    </div>
-                                </div>
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <h4 class="panel-title"><a href="#">Clothing</a></h4>
-                                    </div>
-                                </div>
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <h4 class="panel-title"><a href="#">Bags</a></h4>
-                                    </div>
-                                </div>
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <h4 class="panel-title"><a href="#">Shoes</a></h4>
-                                    </div>
-                                </div>
-                            </div><!--/category-products-->
-
-                            <div class="brands_products"><!--brands_products-->
-                                <h2>Brands</h2>
-                                <div class="brands-name">
-                                    <ul class="nav nav-pills nav-stacked">
-                                        <li><a href="#"> <span class="pull-right">(50)</span>Acne</a></li>
-                                        <li><a href="#"> <span class="pull-right">(56)</span>Grüne Erde</a></li>
-                                        <li><a href="#"> <span class="pull-right">(27)</span>Albiro</a></li>
-                                        <li><a href="#"> <span class="pull-right">(32)</span>Ronhill</a></li>
-                                        <li><a href="#"> <span class="pull-right">(5)</span>Oddmolly</a></li>
-                                        <li><a href="#"> <span class="pull-right">(9)</span>Boudestijn</a></li>
-                                        <li><a href="#"> <span class="pull-right">(4)</span>Rösch creative culture</a></li>
-                                    </ul>
-                                </div>
-                            </div><!--/brands_products-->
-
-                            <div class="price-range"><!--price-range-->
-                                <h2>Price Range</h2>
-                                <div class="well text-center">
-                                    <input type="text" class="span2" value="" data-slider-min="0" data-slider-max="600" data-slider-step="5" data-slider-value="[250,450]" id="sl2" ><br />
-                                    <b class="pull-left">$ 0</b> <b class="pull-right">$ 600</b>
-                                </div>
-                            </div><!--/price-range-->
-                        </div>
-                    </div>
-
-                     <div class="col-sm-9 padding-right">
-                        <div class="features_items"><!--all_items-->
-                            <h2 class="title text-center">All Items</h2>
-                            @foreach($produks as $produk)
-                                <div class="col-sm-4">
-                                <div class="product-image-wrapper">
-                                    <form method="post" action="/cart">
-                                        {{ csrf_field() }}
-                                        <div class="single-products">
-                                            <div class="productinfo text-center">
-                                                <img src='{{ $produk->image }}' alt="" />
+                                        <div class="product-overlay">
+                                            <div class="overlay-content">
                                                 <h2>${{ $produk->harga_produk }}</h2>
                                                 <p>{{ $produk->nama_produk }}</p>
                                                 <div class="form-group">
@@ -390,48 +237,16 @@
                                                     <input type="hidden" name="harga_produk" class="form-control" value="{{ $produk->harga_produk }}">
                                                 </div>
                                                 <div class="form-group">
-                                                    <button type="submit" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-                                                </div>
-                                            </div>
-                                            <div class="product-overlay">
-                                                <div class="overlay-content">
-                                                    <h2>${{ $produk->harga_produk }}</h2>
-                                                    <p>{{ $produk->nama_produk }}</p>
-                                                    <div class="form-group">
-                                                        <input type="hidden" name="id_produk" class="form-control" value="{{ $produk->id_produk }}">
-                                                        <input type="hidden" name="harga_produk" class="form-control" value="{{ $produk->harga_produk }}">
-                                                    </div>
-                                                    <div class="form-group">
-                                                            <button type="submit" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-                                                    </div>
+                                                        <button type="submit" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
                                                 </div>
                                             </div>
                                         </div>
-                                    </form>    
-                                    
-                                    <div class="choose">
-                                        <ul class="nav nav-pills nav-justified">
-                                            <li>
-                                                <form method="post" action="/wishlist">
-                                                    {{ csrf_field() }}
-                                                    <input type="hidden" name="id_produk" class="form-control" value="{{ $produk->id_produk }}">
-                                                    <button type="submit"><i class="fa fa-plus-square"></i>Add to wishlist</button>
-                                                    @if (session('alert'))
-                                                        <script type="text/javascript">alert("Is already in wishlist!");</script>
-                                                        <?php
-                                                                session()->forget('alert');
-                                                        ?>
-                                                    @endif
-                                                </form>
-                                            </li>
-                                        </ul>
                                     </div>
-                                </div>
+                                </form> 
                             </div>
-                            @endforeach                                
-                        </div><!--all_items-->
-
-                    </div>
+                        </div>
+                        @endforeach                                
+                    </div><!--all_items-->
                 </div>
             </div>
         </section>

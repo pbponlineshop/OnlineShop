@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\home;
 
-use Illuminate\Support\Facades\Input;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class productDetailsController extends Controller
