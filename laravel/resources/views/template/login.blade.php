@@ -1,14 +1,8 @@
 <!DOCTYPE html>
 <?php
-    if(Session::get('alert_signup')){
-        $register = Session::get('alert_signup'); 
+    if(!\Session::get('customer')) {
+        $account = Session::get('account');
     } else {
-        $register = ''; 
-    }
-
-     if(!\Session::get('customer')) {
-        $account = Session::get('alert');
-    }else{
         $account = Session::get('customer.0')->nama_cust;
     }
 ?>
@@ -76,6 +70,7 @@
                         <div class="col-sm-8">
                             <div class="shop-menu pull-right">
                                 <ul class="nav navbar-nav">
+                                    <li><a href=""><i class="fa fa-user"></i> <?php echo $account?> </a></li>
                                     <li><a href="/wishlist"><i class="fa fa-star"></i> Wishlist</a></li>
                                     <li><a href="/checkout"><i class="fa fa-crosshairs"></i> Checkout</a></li>
                                     <li><a href="/cart"><i class="fa fa-shopping-cart"></i> Cart</a></li>
@@ -130,11 +125,10 @@
                 <div class="row">
                     <div class="col-sm-4 col-sm-offset-1">
                         <div class="login-form"><!--login form-->
-                            <?php echo $account?>
                             <h2>Login to your account</h2>
                             <form method='get' action="/setsession">
                                 {{ csrf_field() }}
-                                <input type="text" placeholder="Email" name='email_cust' />
+                                <input type="text" placeholder="Name" name='nama_cust' />
                                 <input type="password" placeholder="Password" name='password' />
                                 
                                 <button type="submit" class="btn btn-default">Login</button>
@@ -145,7 +139,6 @@
                         <h2 class="or">OR</h2>
                     </div>
                     <div class="col-sm-4">
-                        <?php echo $register?>
                         <div class="signup-form"><!--sign up form-->
                             <h2>New User Signup!</h2>
                             <form method='post' action="/login">
@@ -153,7 +146,7 @@
                                 <input type="text" placeholder="Name" name='nama_cust'/>
                                 <input type="text" placeholder="Address" name='alamat_cust'/>
                                 <input type="text" placeholder="Phone" name='telepon_cust'/>
-                                <input type="email" placeholder="Email " name='email_cust'/>
+                                <input type="email" placeholder="Email Address" name='email_cust'/>
                                 <input type="password" placeholder="Password" name='password'/>
                                 <button type="submit" class="btn btn-default">Signup</button>
                             </form>

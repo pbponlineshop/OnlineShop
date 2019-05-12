@@ -7,8 +7,7 @@
         $alamat = Session::get('customer.0')->alamat_cust;
         $telepon = Session::get('customer.0')->telepon_cust;
         $email = Session::get('customer.0')->email_cust;
-        $saldo = Session::get('customer.0')->
-            saldo;
+        $saldo = Session::get('customer.0')->saldo;
     }
 ?>
 <html lang="en">
