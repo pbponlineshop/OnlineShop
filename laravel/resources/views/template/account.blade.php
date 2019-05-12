@@ -4,6 +4,9 @@
         $account = Session::get('account');
     } else {
         $account = Session::get('customer.0')->nama_cust;
+        $alamat = Session::get('customer.0')->alamat_cust;
+        $telepon = Session::get('customer.0')->telepon_cust;
+        $email = Session::get('customer.0')->email_cust;
     }
 ?>
 <html lang="en">
@@ -12,14 +15,14 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="">
         <meta name="author" content="">
-        <title>Wishlist | E-Shopper</title>
-        <link href="css/bootstrap.min.css" rel="stylesheet">
-        <link href="css/font-awesome.min.css" rel="stylesheet">
-        <link href="css/prettyPhoto.css" rel="stylesheet">
-        <link href="css/price-range.css" rel="stylesheet">
-        <link href="css/animate.css" rel="stylesheet">
-        <link href="css/main.css" rel="stylesheet">
-        <link href="css/responsive.css" rel="stylesheet">
+        <title>Account | E-Shopper</title>
+        <link href="/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/css/font-awesome.min.css" rel="stylesheet">
+        <link href="/css/prettyPhoto.css" rel="stylesheet">
+        <link href="/css/price-range.css" rel="stylesheet">
+        <link href="/css/animate.css" rel="stylesheet">
+        <link href="/css/main.css" rel="stylesheet">
+        <link href="/css/responsive.css" rel="stylesheet">
         <!--[if lt IE 9]>
         <script src="js/html5shiv.js"></script>
         <script src="js/respond.min.js"></script>
@@ -66,12 +69,35 @@
                             <div class="logo pull-left">
                                 <a href="/index"><img src="images/home/logo.png" alt="" /></a>
                             </div>
+                            <div class="btn-group pull-right">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
+                                        USA
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="">Canada</a></li>
+                                        <li><a href="">UK</a></li>
+                                    </ul>
+                                </div>
+
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
+                                        DOLLAR
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="">Canadian Dollar</a></li>
+                                        <li><a href="">Pound</a></li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-sm-8">
                             <div class="shop-menu pull-right">
                                 <ul class="nav navbar-nav">
-                                    <li><a href="/account"><i class="fa fa-user"></i> <?php echo $account?></a></li>
-                                    <li><a href="/wishlist" class="active"><i class="fa fa-star"></i> Wishlist</a></li>
+                                    <li><a href="/account" class="active"><i class="fa fa-user"></i> <?php echo $account?></a></li>
+                                    <li><a href="/wishlist"><i class="fa fa-star"></i> Wishlist</a></li>
                                     <li><a href="/checkout"><i class="fa fa-crosshairs"></i> Checkout</a></li>
                                     <li><a href="/cart"><i class="fa fa-shopping-cart"></i> Cart</a></li>
                                     
@@ -111,9 +137,9 @@
                                     <li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
                                         <ul role="menu" class="sub-menu">
                                             <li><a href="/shop">Products</a></li>
+                                            <li><a href="/product-details" class="active">Product Details</a></li> 
                                             <li><a href="/checkout">Checkout</a></li> 
                                             <li><a href="/cart">Cart</a></li> 
-                                            
                                             <?php
                                                 if(!Session::get('customer')) {
                                             ?>
@@ -124,7 +150,7 @@
                                                 <li><a href="/removesession">Logout</a></li> 
                                              <?php
                                                 }
-                                            ?>
+                                            ?> 
                                         </ul>
                                     </li> 
                                     <li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
@@ -132,9 +158,15 @@
                                             <li><a href="/blog">Blog List</a></li>
                                             <li><a href="/blog-single">Blog Single</a></li>
                                         </ul>
-                                    </li>
+                                    </li> 
+                                    <li><a href="/404">404</a></li>
                                     <li><a href="/contact-us">Contact</a></li>
                                 </ul>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="search_box pull-right">
+                                <input type="text" placeholder="Search"/>
                             </div>
                         </div>
                     </div>
@@ -142,71 +174,44 @@
             </div>
         </header>
 
-        <section id="advertisement">
-            <div class="container">
-                <img src="images/shop/advertisement.jpg" alt="" />
-            </div>
-        </section>
-
         <section>
             <div class="container">
                 <div class="row">
-                    <div class="features_items"><!--all_items-->
-                        <h2 class="title text-center">Wishlist</h2>
-                        @foreach($wishlists as $wishlist)
-                            <div class="col-sm-4">
-                            <div class="product-image-wrapper">
-                                <form method="post" action="/cart">
-                                    {{ csrf_field() }}
-                                    <div class="single-products">
-                                        <a href="/product-details">
-                                            <div class="productinfo text-center">
-                                                <img src='{{ $wishlist->image }}' alt="" />
-                                                <h2>${{ $wishlist->harga_produk }}</h2>
-                                                <p>{{ $wishlist->nama_produk }}</p>
-                                                <div class="form-group">
-                                                    <input type="hidden" name="id_produk" class="form-control" value="{{ $wishlist->id_produk }}">
-                                                    <input type="hidden" name="harga_produk" class="form-control" value="{{ $wishlist->harga_produk }}">
-                                                </div>
-                                                <div class="form-group">
-                                                    <button type="submit" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a href="/product-details/{{ $wishlist->id_produk }}">
-                                        <!--<a href="/product-details">-->
-                                            <div class="product-overlay">
-                                                <div class="overlay-content">
-                                                    <h2>${{ $wishlist->harga_produk }}</h2>
-                                                    <p>{{ $wishlist->nama_produk }}</p>
-                                                    <div class="form-group">
-                                                        <input type="hidden" name="id_produk" class="form-control" value="{{ $wishlist->id_produk }}">
-                                                        <input type="hidden" name="harga_produk" class="form-control" value="{{ $wishlist->harga_produk }}">
-                                                    </div>
-                                                    <div class="form-group">
-                                                            <button type="submit" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </form>    
-
-                                <div class="choose">
-                                    <ul class="nav nav-pills nav-justified">
-                                        <li>
-                                            <form method="get" action="/wishlistdel {{ $wishlist->id_wishlist }}">
-                                                {{ csrf_field() }}
-                                                <input type="hidden" name="id_produk" class="form-control" value="{{ $wishlist->id_produk }}">
-                                                <button type="submit"><i class="fa fa-plus-square"></i> Remove from wishlist
-                                            </form>
-                                        </li>
-                                    </ul>
+                    
+                    <div class="col-sm-9 padding-right">
+                        <div class="product-details"><!--account-details-->
+                            <div class="col-sm-5">
+                                <div class="view-product">
+                                    <img src="/images/account/profile.png" alt="" height='266' width='381'/>
                                 </div>
+                                <div id="similar-product" class="carousel slide" data-ride="carousel">
+
+                                    
+                                    <!-- Controls -->
+                                    <a class="left item-control" href="#similar-product" data-slide="prev">
+                                        <i class="fa fa-angle-left"></i>
+                                    </a>
+                                    <a class="right item-control" href="#similar-product" data-slide="next">
+                                        <i class="fa fa-angle-right"></i>
+                                    </a>
+                                </div>
+
                             </div>
-                        </div>
-                        @endforeach
-                    </div><!--all_items-->
+                            <div class="col-sm-7">
+                                <div class="product-information"><!--/account-information-->
+                                    <h2><?php echo $account?></h2>
+                                    <img src="images/product-details/rating.png" alt="" />
+                                    <p><b>Alamat:</b> <?php echo $alamat ?></p>
+                                    <p><b>Telepon:</b> <?php echo $telepon ?></p>
+                                    <p><b>E-mail:</b> <?php echo $email ?></p>
+                                    <p><b>Saldo:</b> <?php echo $saldo ?></p>
+                                    <a href=""><img src="images/product-details/share.png" class="share img-responsive"  alt="" /></a>
+                                </div><!--/account-information-->
+                            </div>
+                        </div><!--/account-details-->
+
+
+                    </div>
                 </div>
             </div>
         </section>
@@ -361,7 +366,7 @@
             <div class="footer-bottom">
                 <div class="container">
                     <div class="row">
-                        <p class="pull-left">Copyright © 2013 E-Shopper. All rights reserved.</p>
+                        <p class="pull-left">Copyright © 2013 E-SHOPPER Inc. All rights reserved.</p>
                         <p class="pull-right">Designed by <span><a target="_blank" href="http://www.themeum.com">Themeum</a></span></p>
                     </div>
                 </div>

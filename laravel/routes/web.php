@@ -20,6 +20,7 @@ Route::get('/index', 'home\indexController@show');
 Route::post('/indexlogin', 'home\indexController@index');
 Route::post('/index', 'home\indexController@store');
 Route::get('/shop', 'home\shopController@show');
+Route::get('/account', 'home\accountController@show');
 Route::get('/product-details/{id_produk}', 'home\productDetailsController@show');
 Route::get('/cart', 'home\cartController@show');
 Route::get('/cartdel{id_transdetail}', 'home\cartController@destroy');

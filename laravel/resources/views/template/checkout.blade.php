@@ -66,7 +66,7 @@
                         <div class="col-sm-8">
                             <div class="shop-menu pull-right">
                                 <ul class="nav navbar-nav">
-                                    <li><a href=""><i class="fa fa-user"></i> <?php echo $account?></a></li>
+                                    <li><a href="/account"><i class="fa fa-user"></i> <?php echo $account?></a></li>
                                     <li><a href="/wishlist"><i class="fa fa-star"></i> Wishlist</a></li>
                                     <li><a href="/checkout" class="active"><i class="fa fa-crosshairs"></i> Checkout</a></li>
                                     <li><a href="/cart"><i class="fa fa-shopping-cart"></i> Cart</a></li>
@@ -214,7 +214,9 @@
                                         <tr>
                                             <td>Total</td>
                                             <?php
-                                                echo '<td><span>$ ', $total_harga+($total_harga*0.05), '</span></td>';
+                                                $total_fix = $total_harga + ($total_harga * 0.05);
+                                                echo '<td><span>$ ', $total_fix, '</span></td>';
+                                                session(['total_harga' => $total_fix]);
                                             ?>
                                         </tr>
                                     </table>
@@ -229,6 +231,11 @@
                         <form action="/checkoutpay" method="post">
                             {{ csrf_field() }}
                             <button type="submit" class="btn btn-default check_out" style="font-size:25px;">Pay</button>
+                            @if (session('alert'))
+                                <div class="alert alert-success">
+                                    {{ session('alert') }}
+                                </div>
+                            @endif
                         </form>
                     </span>
                 </div>
