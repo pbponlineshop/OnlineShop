@@ -216,7 +216,9 @@
                                             <?php
                                                 $total_fix = $total_harga + ($total_harga * 0.05);
                                                 echo '<td><span>$ ', $total_fix, '</span></td>';
-                                                session(['total_harga' => $total_fix]);
+                                                
+                                                // session(['total_harga' => $total_fix]);
+                                                
                                             ?>
                                         </tr>
                                     </table>
@@ -230,6 +232,7 @@
                     <span>
                         <form action="/checkoutpay" method="post">
                             {{ csrf_field() }}
+                            <input type="hidden" <?php echo "value=\"$total_fix\" "?> name="total_fix">
                             <button type="submit" class="btn btn-default check_out" style="font-size:25px;">Pay</button>
                             @if (session('alert'))
                                 <div class="alert alert-success">

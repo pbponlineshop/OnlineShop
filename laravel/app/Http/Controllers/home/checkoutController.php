@@ -35,7 +35,6 @@ class checkoutController extends Controller
      */
     public function store(Request $request)
     {
-        $total_harga=0;
         if(!\Session::get('customer')) {
             return view('template.login');
         } else {
@@ -55,23 +54,29 @@ class checkoutController extends Controller
                 
             } else {
                 //update stock produk
-                foreach ($transdetails as $transdetail) {
-                    $new_stock = (\DB::table('produks')->select('stok')->where('id_produk', $transdetail->id_produk)->first()->stok) - ($transdetail->jumlah_barang);
-                    \DB::update('update produks set stok = ? where id_produk = ?', [$new_stock, $transdetail->id_produk]);
-                    $total_harga=$total_harga + ($transdetail->harga_satuan * $transdetail->jumlah_barang);
-                    $total_harga=$total_harga + ($total_harga * 0.05);
+
+                $saldo = \DB::table('customers')->select('saldo')->where('id_cust', $id_cust)->first()->saldo;
+                $total_harga = $request->input('total_fix');
+                if ($saldo < $total_harga) {
+                    return redirect()->back()->with('alert', 'Saldo tidak mencukupi!');
+                } else {
+                    foreach ($transdetails as $transdetail) {
+                        $new_stock = (\DB::table('produks')->select('stok')->where('id_produk', $transdetail->id_produk)->first()->stok) - ($transdetail->jumlah_barang);
+                        \DB::update('update produks set stok = ? where id_produk = ?', [$new_stock, $transdetail->id_produk]);
+                    }
+                    // $total_harga = \Session::get('total_harga');
+                    $saldo = \DB::table('customers')->select('saldo')->where('id_cust', $id_cust)->first()->saldo;
+                    $saldo = $saldo - $total_harga;
+                    \DB::update('update transaksis set tgl_trans = ?, status =  ? where id_trans = ?', [NOW(), 'selesai', $id_trans]);
+                    \DB::update('update customers set saldo = ? where id_cust = ?', [$saldo, $id_cust]);
+                    
+                    $id_trans = \DB::table('transaksis')->select('id_trans')->where('id_cust', $id_cust)->where('status', 'pending')->first();
+                    // \Session::forget('total_harga');
                 }
-                
-                \DB::update('update transaksis set tgl_trans = ?, status =  ? where id_trans = ?', [NOW(), 'selesai', $id_trans]);
-                
-                $id_trans = \DB::table('transaksis')->select('id_trans')->where('id_cust', $id_cust)->where('status', 'pending')->first();
             }
             
             $carts = \DB::table('transaksi_details')
                         ->join('produks', 'transaksi_details.id_produk', '=', 'produks.id_produk')->select('produks.*', 'transaksi_details.*')->where('id_trans', $id_trans)->get();
-            //update saldo
-            $new_saldo = (\DB::table('customers')->select('saldo')->where('id_cust', $id_cust)->first()->saldo) - ($total_harga);
-            \DB::update('update customers set saldo = ? where id_cust = ?', [$new_saldo, $id_cust]);
             return view('template.checkout', ['carts' => $carts]);
         }
     }

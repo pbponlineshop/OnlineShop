@@ -4,6 +4,8 @@
         $account = Session::get('account');
     } else {
         $account = Session::get('customer.0')->nama_cust;
+        $customer = \App\Customer::where('nama_cust', $account)->get();
+        \Session::put('customer', $customer);
         $alamat = Session::get('customer.0')->alamat_cust;
         $telepon = Session::get('customer.0')->telepon_cust;
         $email = Session::get('customer.0')->email_cust;
@@ -202,10 +204,10 @@
                                 <div class="product-information"><!--/account-information-->
                                     <h2><?php echo $account?></h2>
                                     <img src="images/product-details/rating.png" alt="" />
-                                    <p><b>Alamat:</b> <?php echo $alamat ?></p>
-                                    <p><b>Telepon:</b> <?php echo $telepon ?></p>
-                                    <p><b>E-mail:</b> <?php echo $email ?></p>
-                                    <p><b>Saldo:</b> <?php echo $saldo ?></p>
+                                    <p><b>Alamat:</b> <?php echo $alamat ?> </p>
+                                    <p><b>Telepon:</b> <?php echo $telepon ?> </p>
+                                    <p><b>E-mail:</b> <?php echo $email ?> </p>
+                                    <p><b>Saldo:</b> <?php echo $saldo ?> </p>
                                     <a href=""><img src="images/product-details/share.png" class="share img-responsive"  alt="" /></a>
                                 </div><!--/account-information-->
                             </div>

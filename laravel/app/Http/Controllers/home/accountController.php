@@ -47,7 +47,11 @@ class accountController extends Controller
     public function show()
     {
         //
-        return view('template.account');
+        $id_cust = \Session::get('customer.0')['id_cust'];
+        $customers = \App\Customer::where('id_cust', $id_cust)->get();
+        //$saldo = \DB::table('customers')->select('saldo')->where('id_cust', $id_cust)->first()->saldo;
+            
+        return view('template.account', ['$customers', $customers]);
     }
 
     /**
