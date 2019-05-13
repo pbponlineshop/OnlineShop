@@ -41,10 +41,16 @@ class loginController extends Controller
         $telepon_cust = $request->input('telepon_cust');
         $email_cust = $request->input('email_cust');
         
-        \DB::insert('insert into customers (password, nama_cust, alamat_cust, telepon_cust, email_cust, saldo) '
-                . 'values (?, ?, ?, ?, ?, ?)', [$password, $nama_cust, $alamat_cust, $telepon_cust, $email_cust, 0]);
-        
-        return view('template.login');
+        $exists = \DB::table('customers')->where('email_cust','=', $email_cust)->count();
+
+        if ($exists > 0) {
+            return redirect()->back()->with('alert_signup','Email sudah digunakan.');
+        }else{
+            \DB::insert('insert into customers (password, nama_cust, alamat_cust, telepon_cust, email_cust, saldo) '
+                    . 'values (?, ?, ?, ?, ?, ?)', [$password, $nama_cust, $alamat_cust, $telepon_cust, $email_cust, 0]);
+            
+            return view('template.login');
+        }
     }
 
     /**

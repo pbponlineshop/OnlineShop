@@ -217,7 +217,7 @@
                                     {{ csrf_field() }}
                                     <div class="single-products">
                                         <div class="productinfo text-center">
-                                            <img src='{{ $produk->image }}' alt="" />
+                                            <img src='{{ $produk->image }}' alt="" height="268" width="249" />
                                             <h2>${{ $produk->harga_produk }}</h2>
                                             <p>{{ $produk->nama_produk }}</p>
                                             <div class="form-group">

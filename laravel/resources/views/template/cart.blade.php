@@ -173,7 +173,7 @@
                                         <a href=""><img src="{{ $cart->image }}" height='110' width='110' alt=""></a>
                                     </td>
                                     <td class="cart_description">
-                                        <h4><a href="">Colorblock Scuba</a></h4>
+                                        <h4><a href="">{{$cart->nama_produk}}</a></h4>
                                         <p>Web ID: 1089772</p>
                                     </td>
                                     <td class="cart_price">

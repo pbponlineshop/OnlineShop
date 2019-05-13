@@ -8,4 +8,3 @@
     </ul>
   </li>
 
-<li><a href='{{ backpack_url('produks') }}'><i class='fa fa-tag'></i> <span>Insert Product</span></a></li>

@@ -13,13 +13,13 @@ class SessionController extends Controller
          echo 'No data in the session';
    }
    public function storeSessionData(Request $request) {
-        $nama_cust = $request->input('nama_cust');
+        $email_cust = $request->input('email_cust');
         $password = $request->input('password');
-        $customer = \App\Customer::where('nama_cust', $nama_cust)->where('password', $password)->get();
+        $customer = \App\Customer::where('email_cust', $email_cust)->where('password', $password)->get();
         
         //kalo nama & pass salah
         if ($customer->count() == 0) {
-            return redirect('login')->with('alert','Password atau Email, Salah !');
+            return redirect()->back()->with('alert','Password atau Email, Salah !');
         } else {
             $produks = \App\Produk::all();
             \Session::put('customer', $customer);

@@ -161,7 +161,7 @@
                                     <div class="single-products">
                                         <a href="/product-details">
                                             <div class="productinfo text-center">
-                                                <img src='{{ $wishlist->image }}' alt="" />
+                                                <img src='{{ $wishlist->image }}' alt="" height="268" width="249"/>
                                                 <h2>${{ $wishlist->harga_produk }}</h2>
                                                 <p>{{ $wishlist->nama_produk }}</p>
                                                 <div class="form-group">
